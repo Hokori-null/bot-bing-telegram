@@ -1,0 +1,8 @@
+EdgeGPT==0.3.9
+python-multipart
+uvicorn
+gevent
+gunicorn
+asyncio
+easy-ernie
+telebot~=0.0.5
