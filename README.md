@@ -13,7 +13,7 @@ prompt/user.txt是其他人对话的人格
 
 ---
 
-## 配置cookie.json文件
+## 配置module/cookie.json文件
 1.浏览器安装Cookie-Editor扩展.
 2.访问New Bing.
 3.在页面中点击扩展.
