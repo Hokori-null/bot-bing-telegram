@@ -5,4 +5,4 @@ gevent
 gunicorn
 asyncio
 easy-ernie
-telebot~=0.0.5
+telebot
