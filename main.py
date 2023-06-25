@@ -52,7 +52,7 @@ async def xn(message,is_ref=False):
         print("Exception happened xn")
         print(e)
 
-@bot.message_handler()
+@bot.message_handler(func=lambda message: message.chat.type == 'private')
 async def ask(message, is_ref=False):
     try:
         username = message.from_user.username
@@ -72,22 +72,25 @@ async def ask(message, is_ref=False):
         print("Exception happened qa")
         print(e)
 
-@bot.message_handler(commands=['bot'])
+@bot.message_handler(func=lambda message: message.chat.type == 'group')
 async def ask(message, is_ref=False):
     try:
-        username = message.from_user.username
+        if message.text.startswith('/'):
+            username = message.from_user.username
         # if username not in authorized_id:
         #     await bot.reply_to(message, "Not authorized to use this bot")
         #     return
-        namez = username
-        prompt_text = message.text
-        print(f"Request received from {username} - {prompt_text}")
-        if not prompt_text:
-            await bot.reply_to(message, "Empty query sent. Add your query /ask <message>")
+            namez = username
+            prompt_text = message.text
+            print(f"Request received from {username} - {prompt_text}")
+            if not prompt_text:
+                await bot.reply_to(message, "Empty query sent. Add your query /ask <message>")
+            else:
+                bot_response = await bingChat(prompt_text,namez, is_ref)
+                print(f"Response received - {bot_response}")
+                await bot.reply_to(message, bot_response.replace('?\n\n', ''))
         else:
-            bot_response = await bingChat(prompt_text,namez, is_ref)
-            print(f"Response received - {bot_response}")
-            await bot.reply_to(message, bot_response.replace('?\n\n', ''))
+            bot.reply_to(message, 'Hello, this is a group message. Please use /bot command prefix.')
     except Exception as e:
         print("Exception happened qa")
         print(e)
@@ -98,11 +101,14 @@ async def style(message):
         bstyle = bingstyle
         styletxt = message.text.replace("/style", "")
         if styletxt == "创造":
+            await bot.reply_to(message, "切换至创造")
             bstyle = 'creative'
         elif styletxt == "均衡":
             bstyle = 'balanced'
+            await bot.reply_to(message, "切换至均衡")
         elif styletxt == "精准":
             bstyle = 'precise'
+            await bot.reply_to(message, "切换至精准")
         else:
             await bot.reply_to(message, "请设置bing模式 /style 均衡,创造,精准")
     except Exception as e:
