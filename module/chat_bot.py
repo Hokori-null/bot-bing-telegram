@@ -8,7 +8,7 @@ import config
 
 CHAT_BOT = {}
 
-with open('./cookie.json', 'r') as file:
+with open('./module/cookie.json', 'r') as file:
     BING_COOKIE = json.load(file)
 
 def generateChatBot(name) -> Union[tuple, None]:
