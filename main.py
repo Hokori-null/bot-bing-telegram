@@ -91,7 +91,7 @@ async def ask(message, is_ref=False):
                 print(f"Response received - {bot_response}")
                 await bot.reply_to(message, bot_response.replace('?\n\n', ''))
         else:
-            bot.reply_to(message, 'Hello, this is a group message. Please use /bot command prefix.')
+            await  bot.reply_to(message, 'Hello, this is a group message. Please use /bot command prefix.')
     except Exception as e:
         print("Exception happened qa")
         print(e)
