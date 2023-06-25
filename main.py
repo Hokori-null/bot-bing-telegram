@@ -76,7 +76,8 @@ async def ask(message, is_ref=False):
 @bot.message_handler(func=lambda message: message.chat.type == 'group')
 async def ask(message, is_ref=False):
     try:
-        if message.text.startswith('/'):
+
+        if message.text.startswith('/bot'):
             username = message.from_user.username
         # if username not in authorized_id:
         #     await bot.reply_to(message, "Not authorized to use this bot")
@@ -90,47 +91,32 @@ async def ask(message, is_ref=False):
                 bot_response = await bingChat(prompt_text,namez, is_ref)
                 print(f"Response received - {bot_response}")
                 await bot.reply_to(message, bot_response.replace('?\n\n', ''))
+        elif message.text.startswith('/style'):
+            bstyle = bingstyle
+            styletxt = message.text.replace("/style", "")
+            if styletxt == "创造":
+                await bot.reply_to(message, "切换至创造")
+                bstyle = 'creative'
+            elif styletxt == "均衡":
+                bstyle = 'balanced'
+                await bot.reply_to(message, "切换至均衡")
+            elif styletxt == "精准":
+                bstyle = 'precise'
+                await bot.reply_to(message, "切换至精准")
+            else:
+                await bot.reply_to(message, "请设置bing模式 /style 均衡,创造,精准")
+        elif message.text.startswith('/start'):
+            username = message.from_user.username
+            result = f"""
+            Welcome {username}!!
+            """
+            await bot.send_message(message.chat.id, result)
+        elif message.text.startswith('/help'):
+            await bot.reply_to(message, '/bot <内容> 进行对话\n/style 请设置bing模式')
         else:
-            await  bot.reply_to(message, 'Hello, this is a group message. Please use /bot command prefix.')
+            await bot.reply_to(message, '请使用/help查看指令.')
     except Exception as e:
         print("Exception happened qa")
-        print(e)
-
-@bot.message_handler(commands=['style'])
-async def style(message):
-    try:
-        bstyle = bingstyle
-        styletxt = message.text.replace("/style", "")
-        if styletxt == "创造":
-            await bot.reply_to(message, "切换至创造")
-            bstyle = 'creative'
-        elif styletxt == "均衡":
-            bstyle = 'balanced'
-            await bot.reply_to(message, "切换至均衡")
-        elif styletxt == "精准":
-            bstyle = 'precise'
-            await bot.reply_to(message, "切换至精准")
-        else:
-            await bot.reply_to(message, "请设置bing模式 /style 均衡,创造,精准")
-    except Exception as e:
-        print("Exception happened")
-        print(e)
-
-@bot.message_handler(commands=['askref'])
-async def askref(message):
-    await ask(message, is_ref=True)
-
-
-@bot.message_handler(commands=['start'])
-async def start(message):
-    try:
-        username = message.from_user.username
-        result = f"""
-        Welcome {username}!!
-        """
-        await bot.send_message(message.chat.id, result)
-    except Exception as e:
-        print("Exception happened")
         print(e)
 
 
