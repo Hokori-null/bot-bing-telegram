@@ -7,7 +7,8 @@ import asyncio
 import config
 
 CHAT_BOT = {}
-
+prompt = config.PROMPT
+bingstyle = config.STYLE_ENUM
 with open('./module/cookie.json', 'r') as file:
     BING_COOKIE = json.load(file)
 
@@ -37,7 +38,30 @@ async def checkChatBot(loop=True) -> None:
             if auxiliary.getTimeStamp() - chatBot['useTimeStamp'] > config.TOKEN_USE_MAX_TIME_INTERVAL * 60:
                 print('超时一个对话，已清空')
                 await chatBot['chatBot'].close()
-                del chatBot
+                del CHAT_BOT[token]
+                print(CHAT_BOT)
+        if loop:
+            await asyncio.sleep(60)
+        else:
+            break
+
+async def xnChatBot(loop=True) -> None:
+    global CHAT_BOT
+    while True:
+        for token in CHAT_BOT.copy():
+            chatBot = CHAT_BOT[token]
+            if token == config.MASTER_NAME:
+                if auxiliary.getTimeStamp() - chatBot['useTimeStamp'] > 5 * 60:
+                    with open('./prompt/master.txt', 'r') as f:
+                        text = f.read()
+                    await chatBot['chatBot'].ask(prompt=text, conversation_style=bingstyle,webpage_context=prompt)
+                    print('主人洗脑一次')
+            else:
+                if auxiliary.getTimeStamp() - chatBot['useTimeStamp'] > 5 * 60:
+                    with open('./prompt/user.txt', 'r') as f:
+                        text = f.read()
+                    await chatBot['chatBot'].ask(prompt=text, conversation_style=bingstyle,webpage_context=prompt)
+                    print('普通洗脑一次')
         if loop:
             await asyncio.sleep(60)
         else:
