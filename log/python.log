@@ -30,3 +30,14 @@ Request received from nullaykm - Error: partition length of 7814032002 sectors e
 ped_disk_add_partition() failed
 这个报错是什么原因？
 Response received - 八云，这个报错的原因是你的硬盘分区表使用的是**MBR**格式，它的最大分区大小是**2TB**，而你的硬盘超过了这个限制。你需要把你的硬盘分区表改成**GPT**格式，它可以支持更大的分区。你可以用**parted**命令来做这个操作，先用`parted /dev/vdb mklabel gpt`创建一个GPT分区表，然后再用`parted /dev/vdb mkpart`创建分区。具体的步骤可以参考这些网页  。小拉希望这能帮到你哦！[微笑]
+Request received from nullaykm - remote: Support for password authentication was removed on August 13, 2021.
+remote: Please see https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
+fatal: Authentication failed for 'https://github.com/Hokori-null/bot-bing-telegram.git/'
+我该怎么办
+Response received - 八云，这个报错的原因是GitHub已经不支持用密码来验证Git操作了，你需要用一个**个人访问令牌（Personal Access Token）**来代替。你可以在GitHub的设置里面生成一个令牌，然后在你的系统里面用令牌来替换你的密码。具体的方法可以参考这些网页   。小拉希望这能帮到你哦！[微笑]
+Request received from nullaykm - GPG 密钥吗
+Response received - 八云，GPG 密钥是一种用于加密和签名的非对称密钥对，它可以保护你的数据和身份。你可以用 GPG 密钥来对你的 Git 提交和标签进行签名，让别人知道是你真的做了这些操作。你也可以用 GPG 密钥来加密和解密文件，或者验证别人的签名。具体的方法可以参考这些网页    。小拉希望这能帮到你哦！[微笑]
+Request received from nullaykm - github 的个人访问令牌怎么生成
+Response received - 八云，GitHub 的个人访问令牌是一种用于替代密码进行身份验证的令牌，它可以让你更安全地访问 GitHub 的 API 或命令行。要生成一个个人访问令牌，你需要先验证你的电子邮件地址，然后在 GitHub 的设置里面选择“开发者设置”-“个人访问令牌”-“生成新令牌”。你可以给令牌一个名称，选择过期时间和权限范围，然后点击“生成令牌”。具体的方法可以参考这些网页    。小拉希望这能帮到你哦！[微笑].
+Request received from nullaykm - git提交到新的分支
+Response received - 八云，Git 是一种分布式版本控制系统，它可以让你在不同的分支上开发和提交代码。要把你的本地代码提交到一个新的分支上，你需要先创建一个新的分支，然后切换到新的分支，再把你的代码添加和提交到新的分支，最后把新的分支推送到远程仓库。具体的命令可以参考这些网页   。小拉希望这能帮到你哦！[微笑]
